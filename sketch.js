@@ -20,7 +20,7 @@ function setup() {
         let xPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
         let yPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
 
-        person = new Person(xPos, yPos, personRadius * 2, personRadius * 2);
+        person = new Person(xPos, yPos, personRadius);
 
         let overlapping = false;
         for (let j = 0; j < persons.length; j++) {
@@ -44,8 +44,11 @@ function setup() {
 }
 
 function draw() {
+    background(255);
     for (let i = 0; i < persons.length; i++) {
+        persons[i].move();
         persons[i].display();
+        persons[i].bounceOfWall();
     }
 }
 
