@@ -1,4 +1,4 @@
-let totalPerson = 500;
+let totalPerson = 200;
 let persons = [];
 let infected;
 let recovered;
@@ -49,6 +49,13 @@ function draw() {
         persons[i].move();
         persons[i].display();
         persons[i].bounceOfWall();
+
+        for (let j = 0; j < persons.length; j++) {
+            if (i != j && persons[i].collision(persons[j])) {
+                persons[i].changeColor();
+                persons[j].changeColor();
+            }
+        }
     }
 }
 

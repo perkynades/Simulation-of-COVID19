@@ -5,10 +5,11 @@ class Person {
         this.xSpeed = random(-1, 1);
         this.ySpeed = random(-1, 1);
         this.personRadius = personRadius;
+        this.color = color('#34d2eb')
     }
 
     display() {
-        fill('#34d2eb');
+        fill(this.color);
         noStroke();
         ellipse(this.xPos, this.yPos, this.personRadius*2, this.personRadius*2);
     }
@@ -25,5 +26,19 @@ class Person {
         if (this.yPos <= this.personRadius || this.yPos >= (canvasHeight - this.personRadius)) {
             this.ySpeed = this.ySpeed * -1;
         }
+    }
+
+    collision(other) {
+        let distance = dist(this.xPos, this.yPos, other.xPos, other.yPos);
+
+        if (distance < this.personRadius + other.personRadius) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    changeColor() {
+        this.color = color('#ed2d2d');
     }
 }
