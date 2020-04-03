@@ -1,7 +1,10 @@
 let totalPerson = 500;
 let persons = [];
 let infected;
+let recovered;
 let dead;
+
+let person;
 
 let canvasWidth = 800;
 let canvasHeight = 800;
@@ -13,19 +16,18 @@ let personRadius = 4;
 function setup() {
     createCanvas(canvasWidth, canvasHeight);
 
-    while(persons.length < totalPerson) {
-        let person = {
-            xPos: random(personRadius*2, canvasHeight - (personRadius*2)),
-            yPos: random(personRadius*2, canvasHeight - (personRadius*2)),
-            personRadius: personRadius
-        };
+    while (persons.length < totalPerson) {
+        let xPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
+        let yPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
+
+        person = new Person(xPos, yPos, personRadius * 2, personRadius * 2);
 
         let overlapping = false;
         for (let j = 0; j < persons.length; j++) {
             let other = persons[j];
             let distanceBetweenPersons = dist(person.xPos, person.yPos, other.xPos, other.yPos);
 
-            if (distanceBetweenPersons < person.personRadius + other.personRadius) {
+            if (distanceBetweenPersons < (person.width / 2) + (other.width / 2)) {
                 overlapping = true;
             }
         }
@@ -39,10 +41,11 @@ function setup() {
             break;
         }
     }
+}
 
+function draw() {
     for (let i = 0; i < persons.length; i++) {
-        fill('#34d2eb');
-        noStroke();
-        ellipse(persons[i].xPos, persons[i].yPos, persons[i].personRadius*2, persons[i].personRadius*2);
+        persons[i].display();
     }
 }
+
