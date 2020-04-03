@@ -1,4 +1,4 @@
-let healthy = 50;
+let healthy = 500;
 let infected;
 let dead;
 
@@ -14,10 +14,8 @@ function setup() {
 
     fill('#03bafc');
     for (let i = 0; i < healthy; i++) {
-        let xPos = random(0, width);
-        let yPos = random(0, height);
-        if (xPos < (canvasWidth - radius) || yPos < (canvasHeight - radius)) {
-            ellipse(xPos, yPos, radius);
-        }
+        let xPos = random(radius*2, canvasWidth - (radius*2));
+        let yPos = random(radius*2, canvasHeight - (radius*2));
+        ellipse(xPos, yPos, radius);
     }
 }
