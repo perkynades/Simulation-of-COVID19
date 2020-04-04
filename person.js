@@ -1,11 +1,12 @@
 class Person {
-    constructor(xPos, yPos, personRadius) {
+    constructor(xPos, yPos, personRadius, isInfected) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xSpeed = random(-1, 1);
         this.ySpeed = random(-1, 1);
         this.personRadius = personRadius;
-        this.color = color('#34d2eb')
+        this.color = color('#34d2eb');
+        this.isInfected = isInfected;
     }
 
     display() {
@@ -32,6 +33,7 @@ class Person {
         let distance = dist(this.xPos, this.yPos, other.xPos, other.yPos);
 
         if (distance < this.personRadius + other.personRadius) {
+            this.changeDirection();
             return true;
         } else {
             return false;
@@ -39,6 +41,37 @@ class Person {
     }
 
     changeColor() {
-        this.color = color('#ed2d2d');
+        if (this.isInfected == true) {
+            this.color = color('#ed2d2d');
+        }
+    }
+
+    changeDirection() {
+        this.mirrorXSpeed();
+        this.mirrorYSpeed();
+    }
+
+    mirrorXSpeed() {
+        this.xSpeed = this.xSpeed * -1;
+    }
+
+    mirrorYSpeed() {
+        this.ySpeed = this.ySpeed * -1;
+    }
+
+    getInfected() {
+        return this.isInfected;
+    }
+
+    setInfected() {
+        this.isInfected = true;
+    }
+
+    atCollisionCheckIfInfected(other) {
+        if (other.isInfected === false && this.isInfected === true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

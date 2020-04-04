@@ -20,7 +20,7 @@ function setup() {
         let xPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
         let yPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
 
-        person = new Person(xPos, yPos, personRadius);
+        person = new Person(xPos, yPos, personRadius, false);
 
         let overlapping = false;
         for (let j = 0; j < persons.length; j++) {
@@ -41,6 +41,8 @@ function setup() {
             break;
         }
     }
+
+    persons[Math.floor(Math.random() * persons.length)].setInfected();
 }
 
 function draw() {
@@ -52,8 +54,12 @@ function draw() {
 
         for (let j = 0; j < persons.length; j++) {
             if (i != j && persons[i].collision(persons[j])) {
-                persons[i].changeColor();
-                persons[j].changeColor();
+                if (persons[i].atCollisionCheckIfInfected(persons[j])) {
+                    persons[i].setInfected();
+                    persons[j].setInfected();
+                    persons[i].changeColor();
+                    persons[j].changeColor();
+                }
             }
         }
     }
