@@ -1,12 +1,13 @@
 class Person {
-    constructor(xPos, yPos, personRadius, isInfected) {
+    constructor(xPos, yPos, personRadius, isInfected, color) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xSpeed = random(-1, 1);
         this.ySpeed = random(-1, 1);
         this.personRadius = personRadius;
-        this.color = color('#34d2eb');
+        this.color = color;
         this.isInfected = isInfected;
+        this.isRecovered = false;
     }
 
     display() {
@@ -65,6 +66,23 @@ class Person {
 
     setInfected() {
         this.isInfected = true;
+        this.setRecoveredTimer();
+    }
+
+    removeInfected() {
+        this.isInfected = false;
+    }
+
+    setRecoveredTimer() {
+        setTimeout(function () {
+            let newColor = '#d176d6';
+            this.isRecovered = true;
+            this.color = color(newColor);
+        }, 5000);
+    }
+
+    getColor() {
+        return this.color;
     }
 
     atCollisionCheckIfInfected(other) {

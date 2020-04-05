@@ -1,6 +1,6 @@
 let totalPerson = 200;
 let persons = [];
-let infected;
+let infected = [];
 let recovered;
 let dead;
 
@@ -20,7 +20,7 @@ function setup() {
         let xPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
         let yPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
 
-        person = new Person(xPos, yPos, personRadius, false);
+        person = new Person(xPos, yPos, personRadius, false, '#34d2eb');
 
         let overlapping = false;
         for (let j = 0; j < persons.length; j++) {
@@ -59,9 +59,11 @@ function draw() {
                     persons[j].setInfected();
                     persons[i].changeColor();
                     persons[j].changeColor();
+                    infected.push(persons[j]);
                 }
             }
         }
+
     }
 }
 
