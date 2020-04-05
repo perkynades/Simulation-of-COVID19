@@ -74,9 +74,10 @@ class Person {
     }
 
     setRecoveredTimer() {
-        setTimeout(function () {
+        setTimeout(() => {
             let newColor = '#d176d6';
             this.isRecovered = true;
+            this.isInfected = false;
             this.color = color(newColor);
         }, 5000);
     }
@@ -88,6 +89,8 @@ class Person {
     atCollisionCheckIfInfected(other) {
         if (other.isInfected === false && this.isInfected === true) {
             return true;
+        } else if (this.isRecovered === true){
+            return false;
         } else {
             return false;
         }

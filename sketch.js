@@ -6,8 +6,8 @@ let dead;
 
 let person;
 
-let canvasWidth = 800;
-let canvasHeight = 800;
+let canvasWidth = 600;
+let canvasHeight = 600;
 
 let protection = 0;
 
