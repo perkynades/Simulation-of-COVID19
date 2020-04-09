@@ -6,15 +6,15 @@ let dead;
 
 let person;
 
-let canvasWidth = 600;
-let canvasHeight = 600;
+let canvasWidth = 400;
+let canvasHeight = 400;
 
 let protection = 0;
 
 let personRadius = 4;
 
 function setup() {
-    createCanvas(canvasWidth, canvasHeight);
+    createCanvas(canvasWidth, canvasHeight, WEBGL);
 
     while (persons.length < totalPerson) {
         let xPos = random(personRadius * 2, canvasHeight - (personRadius * 2));
@@ -63,7 +63,6 @@ function draw() {
                 }
             }
         }
-
     }
 }
 

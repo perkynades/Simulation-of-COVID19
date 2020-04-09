@@ -69,8 +69,8 @@ class Person {
         this.setRecoveredTimer();
     }
 
-    removeInfected() {
-        this.isInfected = false;
+    getRecovered() {
+        return this.isRecovered;
     }
 
     setRecoveredTimer() {
@@ -79,11 +79,7 @@ class Person {
             this.isRecovered = true;
             this.isInfected = false;
             this.color = color(newColor);
-        }, 5000);
-    }
-
-    getColor() {
-        return this.color;
+        }, 14000);
     }
 
     atCollisionCheckIfInfected(other) {
