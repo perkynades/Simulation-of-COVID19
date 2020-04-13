@@ -1,5 +1,5 @@
 class Person {
-    constructor(xPos, yPos, personRadius, isInfected, color) {
+    constructor(xPos, yPos, personRadius, isInfected, color, willMove) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xSpeed = random(-1, 1);
@@ -8,6 +8,7 @@ class Person {
         this.color = color;
         this.isInfected = isInfected;
         this.isRecovered = false;
+        this.willMove = willMove;
     }
 
     display() {
@@ -17,8 +18,10 @@ class Person {
     }
 
     move() {
-        this.xPos = this.xPos + this.xSpeed;
-        this.yPos = this.yPos + this.ySpeed;
+        if (this.willMove) {
+            this.xPos = this.xPos + this.xSpeed;
+            this.yPos = this.yPos + this.ySpeed;
+        }
     }
 
     bounceOfWall() {
@@ -41,10 +44,33 @@ class Person {
         }
     }
 
-    changeColor() {
-        if (this.isInfected == true) {
-            this.color = color('#ed2d2d');
+    borderCollision(borderX, borderY, borderW, borderH) {
+        let testX = this.xPos;
+        let testY = this.yPos;
+
+        if (this.xPos < borderX) {
+            testX = borderX;
+        } else if (this.xPos > borderX + borderW) {
+            testX = borderX + borderW;
         }
+
+        if (this.yPos < borderY) {
+            testY = borderY;
+        } else if (this.yPos > borderY + borderH) {
+            testY = borderY + borderH;
+        }
+
+        let distance = dist(this.xPos, this.yPos, testX, testY);
+
+        if (distance <= this.personRadius) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    changeColor() {
+        this.color = color('#ed2d2d');
     }
 
     changeDirection() {
@@ -73,20 +99,27 @@ class Person {
         return this.isRecovered;
     }
 
+    setWillNotMove() {
+        this.willMove = false;
+    }
+
+    getWillMove() {
+        return this.willMove;
+    }
+
     setRecoveredTimer() {
         setTimeout(() => {
             let newColor = '#d176d6';
             this.isRecovered = true;
-            this.isInfected = false;
             this.color = color(newColor);
+            recovered.push(this);
+            infected.shift();
         }, 14000);
     }
 
     atCollisionCheckIfInfected(other) {
         if (other.isInfected === false && this.isInfected === true) {
             return true;
-        } else if (this.isRecovered === true){
-            return false;
         } else {
             return false;
         }
