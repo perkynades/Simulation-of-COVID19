@@ -19,8 +19,8 @@ class Person {
 
     move() {
         if (this.willMove) {
-            this.xPos = this.xPos + this.xSpeed;
-            this.yPos = this.yPos + this.ySpeed;
+            this.xPos += this.xSpeed;
+            this.yPos += this.ySpeed;
         }
     }
 

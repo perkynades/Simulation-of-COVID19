@@ -5,7 +5,7 @@ var recovered = [];
 let dead;
 
 let person;
-let personsInQuarantine = 180;
+let personsInQuarantine = 160;
 let movingPeople = [];
 
 let canvasWidth = 400;
