@@ -75,7 +75,7 @@ class Person {
     }
 
     changeDirection() {
-        this.speed = random(1, 2) * random([-1, 1]);
+        this.speed = random(1, 1.1) * random([-1, 1]);
 
         let ang = random(PI * 2);
         this.changeXSpeed(ang);
