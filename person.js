@@ -77,7 +77,7 @@ class Person {
     changeDirection() {
         this.speed = random(1, 1.1) * random([-1, 1]);
 
-        let ang = random(PI * 2);
+        let ang = random(PI);
         this.changeXSpeed(ang);
         this.changeYSpeed(ang);
     }
@@ -122,7 +122,7 @@ class Person {
     }
 
     atCollisionCheckIfInfected(other) {
-        if (other.isInfected === false && this.isInfected === true) {
+        if (other.isInfected === false && this.isInfected === true && this.isRecovered === false) {
             return true;
         } else {
             return false;
