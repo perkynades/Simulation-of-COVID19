@@ -116,9 +116,7 @@ class Person {
 
     setRecoveredTimer() {
         setTimeout(() => {
-            let deadProbability = Math.random() * 100;
-
-            if (deadProbability < 6) {
+            if (Math.random() * 100 < this.dyingProbability) {
                 this.color = color('#2e333b');
                 this.dead = true;
                 dead.push(this);
@@ -168,7 +166,33 @@ class Person {
         return newAge;
     }
 
-    assignDyingProbability() {
+    getAge() {
+        return this.age;
+    }
 
+    // THESE NUMBERS ARE NOT CORRECT, THIS IS JUST WHAT I ASSUME IS RIGHT
+    assignDyingProbability() {
+        let newDyingProbability;
+
+        if (this.age === 15) {
+            newDyingProbability = 15;
+        }
+        if (this.age === 19) {
+            newDyingProbability = 8;
+        }
+        if (this.age === 44) {
+            newDyingProbability = 10;
+        }
+        if (this.age === 66) {
+            newDyingProbability = 17;
+        }
+        if (this.age === 79) {
+            newDyingProbability = 25;
+        }
+        if (this.age === 90) {
+            newDyingProbability = 35;
+        }
+
+        return newDyingProbability;
     }
 }
