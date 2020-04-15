@@ -2,6 +2,7 @@ var totalPerson = 200;
 var persons = [];
 var infected = [];
 var recovered = [];
+
 var dead = [];
 
 let person;

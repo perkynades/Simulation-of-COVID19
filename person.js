@@ -113,11 +113,23 @@ class Person {
 
     setRecoveredTimer() {
         setTimeout(() => {
-            let newColor = '#d176d6';
-            this.isRecovered = true;
-            this.color = color(newColor);
-            recovered.push(this);
-            infected.shift();
+            let deadProbability = Math.random() * 100;
+
+            if (deadProbability < 10) {
+                this.color = color('#2e333b');
+                this.dead = true;
+                dead.push(this);
+            }
+        },7000);
+
+        setTimeout(() => {
+            if (!this.dead) {
+                let newColor = '#d176d6';
+                this.isRecovered = true;
+                this.color = color(newColor);
+                recovered.push(this);
+                infected.shift();
+            }
         }, 14000);
     }
 
