@@ -115,7 +115,7 @@ class Person {
         setTimeout(() => {
             let deadProbability = Math.random() * 100;
 
-            if (deadProbability < 10) {
+            if (deadProbability < 6) {
                 this.color = color('#2e333b');
                 this.dead = true;
                 dead.push(this);
