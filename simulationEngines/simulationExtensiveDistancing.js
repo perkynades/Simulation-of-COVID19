@@ -5,7 +5,7 @@ var recovered = [];
 let dead;
 
 let person;
-let personsInQuarantine = 160;
+let personsInQuarantine = 190;
 let movingPeople = [];
 
 let canvasWidth = 400;
@@ -60,6 +60,7 @@ function setup() {
 
 function draw() {
     background(255);
+    angleMode(RADIANS);
     for (let i = 0; i < persons.length; i++) {
         persons[i].move();
         persons[i].display();

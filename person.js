@@ -2,6 +2,7 @@ class Person {
     constructor(xPos, yPos, personRadius, isInfected, color, willMove) {
         this.xPos = xPos;
         this.yPos = yPos;
+        this.speed = 0.1;
         this.xSpeed = random(-1, 1);
         this.ySpeed = random(-1, 1);
         this.personRadius = personRadius;
@@ -74,16 +75,19 @@ class Person {
     }
 
     changeDirection() {
-        this.mirrorXSpeed();
-        this.mirrorYSpeed();
+        this.speed = random(1, 2) * random([-1, 1]);
+
+        let ang = random(PI * 2);
+        this.changeXSpeed(ang);
+        this.changeYSpeed(ang);
     }
 
-    mirrorXSpeed() {
-        this.xSpeed = this.xSpeed * -1;
+    changeXSpeed(ang) {
+        this.xSpeed = this.speed * cos(ang);
     }
 
-    mirrorYSpeed() {
-        this.ySpeed = this.ySpeed * -1;
+    changeYSpeed(ang) {
+        this.ySpeed = this.speed * sin(ang);
     }
 
     getInfected() {

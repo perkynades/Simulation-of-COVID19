@@ -63,6 +63,7 @@ function setup() {
 
 function draw() {
     background(255);
+    angleMode(RADIANS);
     northQuarantineBorder.display();
     southQuarantineBorder.display();
     northQuarantineBorder.move();
