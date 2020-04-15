@@ -18,6 +18,11 @@ var chart = new Chart(ctx, {
             label: "Recovered",
             borderColor: "#d176d6",
             fill: false
+        }, {
+            data: [0],
+            label: "Dead",
+            borderColor: "#2e333b",
+            fill: false
         }
         ]
     },
@@ -44,8 +49,6 @@ function addData(chart, data) {
     var count = chart.data.labels.push(xx);
     xx++;
 
-
-
     var dataset, i;
 
     for (i = 0; i < data.length; i++) {
@@ -58,7 +61,7 @@ function addData(chart, data) {
 
 var simulationDays = 0;
 let chartInterval = setInterval(() => {
-    addData(chart,[totalPerson, Math.floor(infected.length / 2), Math.floor(recovered.length / 2)]);
+    addData(chart,[totalPerson, Math.floor(infected.length / 2), Math.floor(recovered.length / 2), dead.length]);
     simulationDays++;
     if (simulationDays === 51) {
         clearInterval(chartInterval);

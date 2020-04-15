@@ -2,7 +2,8 @@ var totalPerson = 200;
 var persons = [];
 var infected = [];
 var recovered = [];
-let dead;
+
+var dead = [];
 
 var person;
 
@@ -63,6 +64,7 @@ function setup() {
 
 function draw() {
     background(255);
+    angleMode(RADIANS);
     northQuarantineBorder.display();
     southQuarantineBorder.display();
     northQuarantineBorder.move();

@@ -2,12 +2,16 @@ class Person {
     constructor(xPos, yPos, personRadius, isInfected, color, willMove) {
         this.xPos = xPos;
         this.yPos = yPos;
+        this.speed = 0.1;
         this.xSpeed = random(-1, 1);
         this.ySpeed = random(-1, 1);
         this.personRadius = personRadius;
         this.color = color;
         this.isInfected = isInfected;
         this.isRecovered = false;
+        this.dead = false;
+        this.age = this.assignAge();
+        this.dyingProbability;
         this.willMove = willMove;
     }
 
@@ -74,16 +78,19 @@ class Person {
     }
 
     changeDirection() {
-        this.mirrorXSpeed();
-        this.mirrorYSpeed();
+        this.speed = random(1, 1.1) * random([-1, 1]);
+
+        let ang = random(PI);
+        this.changeXSpeed(ang);
+        this.changeYSpeed(ang);
     }
 
-    mirrorXSpeed() {
-        this.xSpeed = this.xSpeed * -1;
+    changeXSpeed(ang) {
+        this.xSpeed = this.speed * cos(ang);
     }
 
-    mirrorYSpeed() {
-        this.ySpeed = this.ySpeed * -1;
+    changeYSpeed(ang) {
+        this.ySpeed = this.speed * sin(ang);
     }
 
     getInfected() {
@@ -109,19 +116,43 @@ class Person {
 
     setRecoveredTimer() {
         setTimeout(() => {
-            let newColor = '#d176d6';
-            this.isRecovered = true;
-            this.color = color(newColor);
-            recovered.push(this);
-            infected.shift();
+            let deadProbability = Math.random() * 100;
+
+            if (deadProbability < 6) {
+                this.color = color('#2e333b');
+                this.dead = true;
+                dead.push(this);
+            }
+        },7000);
+
+        setTimeout(() => {
+            if (!this.dead) {
+                let newColor = '#d176d6';
+                this.isRecovered = true;
+                this.color = color(newColor);
+                recovered.push(this);
+                infected.shift();
+            }
         }, 14000);
     }
 
     atCollisionCheckIfInfected(other) {
-        if (other.isInfected === false && this.isInfected === true) {
+        if (other.isInfected === false && this.isInfected === true && this.isRecovered === false && this.dead === false) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    // The assigning of age is reflective of the population of Norway
+    assignAge() {
+        let newAge;
+
+        let agePercent = Math.random() * 100;
+
+        //
+        if (agePercent < 18.5) {
+
         }
     }
 }
