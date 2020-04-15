@@ -9,6 +9,9 @@ class Person {
         this.color = color;
         this.isInfected = isInfected;
         this.isRecovered = false;
+        this.dead = false;
+        this.age = this.assignAge();
+        this.dyingProbability;
         this.willMove = willMove;
     }
 
@@ -134,10 +137,22 @@ class Person {
     }
 
     atCollisionCheckIfInfected(other) {
-        if (other.isInfected === false && this.isInfected === true && this.isRecovered === false) {
+        if (other.isInfected === false && this.isInfected === true && this.isRecovered === false && this.dead === false) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    // The assigning of age is reflective of the population of Norway
+    assignAge() {
+        let newAge;
+
+        let agePercent = Math.random() * 100;
+
+        //
+        if (agePercent < 18.5) {
+
         }
     }
 }
