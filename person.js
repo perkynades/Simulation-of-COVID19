@@ -11,7 +11,7 @@ class Person {
         this.isRecovered = false;
         this.dead = false;
         this.age = this.assignAge();
-        this.dyingProbability;
+        this.dyingProbability = this.assignDyingProbability();
         this.willMove = willMove;
     }
 
@@ -144,7 +144,7 @@ class Person {
         }
     }
 
-    // The assigning of age is reflective of the population of Norway
+    // The assigning of age is reflective of the population of Norway in 2014
     assignAge() {
         let newAge;
 
@@ -152,7 +152,23 @@ class Person {
 
         //
         if (agePercent < 18.5) {
-
+            newAge = 15;
+        } else if (agePercent < 23.6) {
+            newAge = 19;
+        } else if (agePercent < 57.8) {
+            newAge = 44;
+        } else if (agePercent < 85.4) {
+            newAge = 66;
+        } else if (agePercent < 94.8) {
+            newAge = 79;
+        } else {
+            newAge = 90;
         }
+
+        return newAge;
+    }
+
+    assignDyingProbability() {
+
     }
 }
