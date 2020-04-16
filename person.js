@@ -125,7 +125,7 @@ class Person {
                 this.color = color('#2e333b');
                 this.dead = true;
                 dead.push(this);
-                infected.shift();
+                infected.pop();
                 infected.shift();
             }
         },7000);
