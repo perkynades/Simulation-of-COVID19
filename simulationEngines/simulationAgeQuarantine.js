@@ -66,11 +66,14 @@ function draw() {
     background(255);
     angleMode(RADIANS);
     quarantineBorder.display();
-    quarantineBorder.move();
     for (let i = 0; i < persons.length; i++) {
         persons[i].move();
         persons[i].display();
         persons[i].bounceOfWall();
+
+        if (persons[i].borderCollision(quarantineBorder.xPos, quarantineBorder.yPos, quarantineBorder.width, quarantineBorder.height)) {
+            persons[i].mirrorBounce();
+        }
 
         for (let j = 0; j < persons.length; j++) {
             if (i != j && persons[i].collision(persons[j])) {
@@ -85,31 +88,5 @@ function draw() {
                 }
             }
         }
-
-        if (persons[i].borderCollision(quarantineBorder.xPos, quarantineBorder.yPos, quarantineBorder.width, quarantineBorder.height)) {
-            persons[i].changeDirection();
-        }
     }
-}
-
-function distanceFromPersonToBorder(borderX, borderY, borderW, borderH, personX, personY) {
-    let testX = personY;
-    let testY = personX;
-
-    if (personX < borderX) {
-        testX = borderX;
-    } else if (personX > borderX + borderW) {
-        testX = borderX + borderW;
-    }
-
-    if (personY < borderY) {
-        testY = borderY;
-    } else if (personY > borderY + borderH) {
-        testY = borderY + borderH;
-    }
-
-    let distX = personX - testX;
-    let distY = personY - testY;
-
-    return Math.sqrt((distX*distX) + (distY*distY));
 }

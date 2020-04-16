@@ -37,6 +37,11 @@ class Person {
         }
     }
 
+    mirrorBounce() {
+        this.xSpeed = this.xSpeed * -1;
+        this.ySpeed = this.ySpeed * -1;
+    }
+
     collision(other) {
         let distance = dist(this.xPos, this.yPos, other.xPos, other.yPos);
 
@@ -80,7 +85,7 @@ class Person {
     changeDirection() {
         this.speed = random(1, 1.1) * random([-1, 1]);
 
-        let ang = random(PI);
+        let ang = random(PI / 2);
         this.changeXSpeed(ang);
         this.changeYSpeed(ang);
     }
@@ -120,6 +125,7 @@ class Person {
                 this.color = color('#2e333b');
                 this.dead = true;
                 dead.push(this);
+                infected.shift();
                 infected.shift();
             }
         },7000);
