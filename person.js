@@ -120,6 +120,7 @@ class Person {
                 this.color = color('#2e333b');
                 this.dead = true;
                 dead.push(this);
+                infected.shift();
             }
         },7000);
 
@@ -170,6 +171,10 @@ class Person {
         return this.age;
     }
 
+    getDyingProbability() {
+        return this.dyingProbability;
+    }
+
     // THESE NUMBERS ARE NOT CORRECT, THIS IS JUST WHAT I ASSUME IS RIGHT
     assignDyingProbability() {
         let newDyingProbability;
@@ -194,5 +199,18 @@ class Person {
         }
 
         return newDyingProbability;
+    }
+
+    moveToSpecificPointAndGetInfected(x, y) {
+        this.xPos = x;
+        this.yPos = y;
+
+        this.setInfected();
+        this.changeColor();
+    }
+
+    moveToSpecificPoint(x, y) {
+        this.xPos = x;
+        this.yPos = y;
     }
 }
