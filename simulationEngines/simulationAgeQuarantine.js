@@ -1,9 +1,9 @@
 var totalPerson = 200;
-var persons = [];
-var infected = [];
-var recovered = [];
+var infectedPersons = 0;
+var recoveredPersons = 0;
+var deadPersons = 0;
 
-var dead = [];
+var persons = [];
 
 var person;
 
@@ -60,6 +60,7 @@ function setup() {
     }
 
     persons[Math.floor(Math.random() * persons.length)].moveToSpecificPointAndGetInfected(200, 200);
+    infectedPersons++;
 }
 
 function draw() {
@@ -78,12 +79,9 @@ function draw() {
         for (let j = 0; j < persons.length; j++) {
             if (i != j && persons[i].collision(persons[j])) {
                 if (persons[i].atCollisionCheckIfInfected(persons[j])) {
-                    persons[i].setInfected();
                     persons[j].setInfected();
-                    persons[i].changeColor();
                     persons[j].changeColor();
-                    infected.push(persons[i]);
-                    infected.push(persons[j]);
+                    infectedPersons++;
                     totalPerson--;
                 }
             }

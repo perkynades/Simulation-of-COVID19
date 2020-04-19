@@ -104,7 +104,9 @@ class Person {
 
     setInfected() {
         this.isInfected = true;
+        this.changeColor();
         this.setRecoveredTimer();
+        this.setDeadTimer();
     }
 
     getRecovered() {
@@ -121,22 +123,12 @@ class Person {
 
     setRecoveredTimer() {
         setTimeout(() => {
-            if (Math.random() * 100 < this.dyingProbability) {
-                this.color = color('#2e333b');
-                this.dead = true;
-                dead.push(this);
-                infected.pop();
-                infected.shift();
-            }
-        },7000);
-
-        setTimeout(() => {
             if (!this.dead) {
                 let newColor = '#d176d6';
                 this.isRecovered = true;
                 this.color = color(newColor);
-                recovered.push(this);
-                infected.shift();
+                recoveredPersons++;
+                infectedPersons--;
             }
         }, 14000);
     }
@@ -218,5 +210,16 @@ class Person {
     moveToSpecificPoint(x, y) {
         this.xPos = x;
         this.yPos = y;
+    }
+
+    setDeadTimer() {
+        setTimeout(() => {
+            if (Math.random() * 100 < this.dyingProbability) {
+                this.color = color('#2e333b');
+                this.dead = true;
+                deadPersons++;
+                infectedPersons--;
+            }
+        },7000);
     }
 }

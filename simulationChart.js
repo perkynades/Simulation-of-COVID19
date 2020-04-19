@@ -61,7 +61,7 @@ function addData(chart, data) {
 
 var simulationDays = 0;
 let chartInterval = setInterval(() => {
-    addData(chart,[totalPerson, Math.floor(infected.length / 2), Math.floor(recovered.length / 2), dead.length]);
+    addData(chart,[totalPerson, infectedPersons, recoveredPersons, deadPersons]);
     simulationDays++;
     if (simulationDays === 51) {
         clearInterval(chartInterval);
