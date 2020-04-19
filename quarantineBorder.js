@@ -19,5 +19,9 @@ class QuarantineBorder {
         }, 5000);
     }
 
+    moveOutOfCanvas(canvasWidth, canvasHeight) {
+        this.xPos = canvasWidth;
+        this.yPos = canvasHeight;
+    }
 
 }
