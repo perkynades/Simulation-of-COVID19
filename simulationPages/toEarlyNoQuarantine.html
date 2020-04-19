@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Too early no quarantine</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="../simulationEngines/simulationToEarlyNoQuarantine.js"></script>
+    <script src="../person.js"></script>
+    <script src="../quarantineBorder.js"></script>
+    <link rel="stylesheet" type="text/css" href="../master.css">
+</head>
+<body>
+<h1 class="centerAligner">Too early no quarantine</h1>
+<div class="centerAligner">
+    <button class="button" onclick="window.location.reload()">Play again</button>
+</div>
+<div class="centerAligner">
+    <button class="button" onclick="document.location = '../index.html'">More scenarios</button>
+</div>
+<div class="chartContainer">
+    <canvas id="infectedChart"></canvas>
+</div>
+<script src="../simulationChart.js"></script>
+</body>
+</html>
