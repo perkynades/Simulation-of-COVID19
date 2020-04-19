@@ -4,12 +4,12 @@ var recoveredPersons = 0;
 var deadPersons = 0;
 
 var persons = [];
-let person;
 
-let northQuarantineBorder;
-let southQuarantineBorder;
+var person;
 
-let canvasWidth = 400;
+let quarantineBorder;
+
+let canvasWidth = 800;
 let canvasHeight = 400;
 
 let protection = 0;
@@ -26,12 +26,10 @@ function setup() {
 
         person = new Person(xPos, yPos, personRadius, false, '#34d2eb', true);
 
-        northQuarantineBorder = new QuarantineBorder(199, 0, 10, 200, -0.06);
-        southQuarantineBorder = new QuarantineBorder(199, 200, 10, 200, 0.06);
+        quarantineBorder = new QuarantineBorder(380, 0, 40, 400, 0);
 
         let overlapping = false;
         let overLappingNorthBorder = false;
-        let overLappingSouthBorder = false;
         for (let j = 0; j < persons.length; j++) {
             let other = persons[j];
             let distanceBetweenPersons = dist(person.xPos, person.yPos, other.xPos, other.yPos);
@@ -39,14 +37,11 @@ function setup() {
             if (distanceBetweenPersons < (person.personRadius) + (other.personRadius)) {
                 overlapping = true;
             }
-            if (person.borderCollision(northQuarantineBorder.xPos, northQuarantineBorder.yPos, northQuarantineBorder.width, northQuarantineBorder.height)) {
+            if (person.borderCollision(quarantineBorder.xPos, quarantineBorder.yPos, quarantineBorder.width, quarantineBorder.height)) {
                 overLappingNorthBorder = true;
             }
-            if (person.borderCollision(southQuarantineBorder.xPos, southQuarantineBorder.yPos, southQuarantineBorder.width, southQuarantineBorder.height)) {
-                overLappingSouthBorder = true;
-            }
         }
-        if (!overlapping && !overLappingNorthBorder && !overLappingSouthBorder) {
+        if (!overlapping && !overLappingNorthBorder) {
             persons.push(person);
         }
 
@@ -57,27 +52,27 @@ function setup() {
         }
     }
 
-    persons[Math.floor(Math.random() * persons.length)].setInfected();
+    //Quarantine all the old people
+    for (let i = 0; i < persons.length; i++) {
+        if (persons[i].getAge() === 66 || persons[i].getAge() === 79 || persons[i].getAge() === 90) {
+            persons[i].moveToSpecificPoint(500, 200);
+        }
+    }
+
+    persons[Math.floor(Math.random() * persons.length)].moveToSpecificPointAndGetInfected(200, 200);
     infectedPersons++;
 }
 
 function draw() {
     background(255);
     angleMode(RADIANS);
-    northQuarantineBorder.display();
-    southQuarantineBorder.display();
-    northQuarantineBorder.move();
-    southQuarantineBorder.move();
+    quarantineBorder.display();
     for (let i = 0; i < persons.length; i++) {
         persons[i].move();
         persons[i].display();
         persons[i].bounceOfWall();
 
-
-        if (persons[i].borderCollision(northQuarantineBorder.xPos, northQuarantineBorder.yPos, northQuarantineBorder.width, northQuarantineBorder.height)) {
-            persons[i].mirrorBounce();
-        }
-        if (persons[i].borderCollision(southQuarantineBorder.xPos, southQuarantineBorder.yPos, southQuarantineBorder.width, southQuarantineBorder.height)) {
+        if (persons[i].borderCollision(quarantineBorder.xPos, quarantineBorder.yPos, quarantineBorder.width, quarantineBorder.height)) {
             persons[i].mirrorBounce();
         }
 
@@ -91,7 +86,5 @@ function draw() {
                 }
             }
         }
-
-
     }
 }

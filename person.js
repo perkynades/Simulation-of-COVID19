@@ -11,7 +11,7 @@ class Person {
         this.isRecovered = false;
         this.dead = false;
         this.age = this.assignAge();
-        this.dyingProbability;
+        this.dyingProbability = this.assignDyingProbability();
         this.willMove = willMove;
     }
 
@@ -35,6 +35,11 @@ class Person {
         if (this.yPos <= this.personRadius || this.yPos >= (canvasHeight - this.personRadius)) {
             this.ySpeed = this.ySpeed * -1;
         }
+    }
+
+    mirrorBounce() {
+        this.xSpeed = this.xSpeed * -1;
+        this.ySpeed = this.ySpeed * -1;
     }
 
     collision(other) {
@@ -80,7 +85,7 @@ class Person {
     changeDirection() {
         this.speed = random(1, 1.1) * random([-1, 1]);
 
-        let ang = random(PI);
+        let ang = random(PI / 2);
         this.changeXSpeed(ang);
         this.changeYSpeed(ang);
     }
@@ -99,7 +104,9 @@ class Person {
 
     setInfected() {
         this.isInfected = true;
+        this.changeColor();
         this.setRecoveredTimer();
+        this.setDeadTimer();
     }
 
     getRecovered() {
@@ -116,22 +123,12 @@ class Person {
 
     setRecoveredTimer() {
         setTimeout(() => {
-            let deadProbability = Math.random() * 100;
-
-            if (deadProbability < 6) {
-                this.color = color('#2e333b');
-                this.dead = true;
-                dead.push(this);
-            }
-        },7000);
-
-        setTimeout(() => {
             if (!this.dead) {
                 let newColor = '#d176d6';
                 this.isRecovered = true;
                 this.color = color(newColor);
-                recovered.push(this);
-                infected.shift();
+                recoveredPersons++;
+                infectedPersons--;
             }
         }, 14000);
     }
@@ -144,7 +141,7 @@ class Person {
         }
     }
 
-    // The assigning of age is reflective of the population of Norway
+    // The assigning of age is reflective of the population of Norway in 2014
     assignAge() {
         let newAge;
 
@@ -152,7 +149,77 @@ class Person {
 
         //
         if (agePercent < 18.5) {
-
+            newAge = 15;
+        } else if (agePercent < 23.6) {
+            newAge = 19;
+        } else if (agePercent < 57.8) {
+            newAge = 44;
+        } else if (agePercent < 85.4) {
+            newAge = 66;
+        } else if (agePercent < 94.8) {
+            newAge = 79;
+        } else {
+            newAge = 90;
         }
+
+        return newAge;
+    }
+
+    getAge() {
+        return this.age;
+    }
+
+    getDyingProbability() {
+        return this.dyingProbability;
+    }
+
+    // THESE NUMBERS ARE NOT CORRECT, THIS IS JUST WHAT I ASSUME IS RIGHT
+    assignDyingProbability() {
+        let newDyingProbability;
+
+        if (this.age === 15) {
+            newDyingProbability = 15;
+        }
+        if (this.age === 19) {
+            newDyingProbability = 8;
+        }
+        if (this.age === 44) {
+            newDyingProbability = 10;
+        }
+        if (this.age === 66) {
+            newDyingProbability = 17;
+        }
+        if (this.age === 79) {
+            newDyingProbability = 25;
+        }
+        if (this.age === 90) {
+            newDyingProbability = 35;
+        }
+
+        return newDyingProbability;
+    }
+
+    moveToSpecificPointAndGetInfected(x, y) {
+        this.xPos = x;
+        this.yPos = y;
+
+        this.setInfected();
+        this.changeColor();
+    }
+
+    moveToSpecificPoint(x, y) {
+        this.xPos = x;
+        this.yPos = y;
+    }
+
+    setDeadTimer() {
+        setTimeout(() => {
+            if (Math.random() * 100 < this.dyingProbability) {
+                this.color = color('#2e333b');
+                this.dead = true;
+                deadPersons++;
+                infectedPersons--;
+            }
+        },7000);
     }
 }
