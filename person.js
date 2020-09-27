@@ -8,10 +8,10 @@
 class Person {
 
     /**
-     * Response for constructing each person instance
+     * Responsible for constructing each person instance
      * @param xPos The starting position of each person instance on the x-axis
      * @param yPos The starting position of each person instance on the y-axis
-     * @param personRadius The starting radius of each person instance
+     * @param personRadius The radius of each person instance
      * @param isInfected If each person instance is infected or not
      * @param color The color of each person instance
      * @param willMove If each person instance is going to move or not

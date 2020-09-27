@@ -44,7 +44,7 @@ var chart = new Chart(ctx, {
     }
 });
 
-var xx = 0;
+let xx = 0;
 function addData(chart, data) {
     var count = chart.data.labels.push(xx);
     xx++;
@@ -59,7 +59,7 @@ function addData(chart, data) {
     chart.update(0);
 }
 
-var simulationDays = 0;
+let simulationDays = 0;
 let chartInterval = setInterval(() => {
     addData(chart,[totalPerson, infectedPersons, recoveredPersons, deadPersons]);
     simulationDays++;
