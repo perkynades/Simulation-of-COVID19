@@ -47,7 +47,7 @@ function setup() {
 
     let chooser = randomNoRepeats(persons);
     for (let i = 0; i < personsInQuarantine; i++) {
-        chooser().setWillNotMove();
+        chooser().setWillNotMoveToFalse();
     }
 
     //The rest in the array will be the people who are moving
@@ -65,13 +65,13 @@ function draw() {
     for (let i = 0; i < persons.length; i++) {
         persons[i].move();
         persons[i].display();
-        persons[i].bounceOfWall();
+        persons[i].bounceOfCanvasWall();
 
         for (let j = 0; j < persons.length; j++) {
-            if (i != j && persons[i].collision(persons[j])) {
+            if (i != j && persons[i].checkCollisionWithOtherPerson(persons[j])) {
                 if (persons[i].atCollisionCheckIfInfected(persons[j])) {
                     persons[j].setInfected();
-                    persons[j].changeColor();
+                    persons[j].changeColorToRed();
                     infectedPersons++;
                     totalPerson--;
                 }

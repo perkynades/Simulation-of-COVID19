@@ -39,10 +39,10 @@ function setup() {
             if (distanceBetweenPersons < (person.personRadius) + (other.personRadius)) {
                 overlapping = true;
             }
-            if (person.borderCollision(northQuarantineBorder.xPos, northQuarantineBorder.yPos, northQuarantineBorder.width, northQuarantineBorder.height)) {
+            if (person.checkIfQuarantineBorderCollision(northQuarantineBorder.xPos, northQuarantineBorder.yPos, northQuarantineBorder.width, northQuarantineBorder.height)) {
                 overLappingNorthBorder = true;
             }
-            if (person.borderCollision(southQuarantineBorder.xPos, southQuarantineBorder.yPos, southQuarantineBorder.width, southQuarantineBorder.height)) {
+            if (person.checkIfQuarantineBorderCollision(southQuarantineBorder.xPos, southQuarantineBorder.yPos, southQuarantineBorder.width, southQuarantineBorder.height)) {
                 overLappingSouthBorder = true;
             }
         }
@@ -71,21 +71,21 @@ function draw() {
     for (let i = 0; i < persons.length; i++) {
         persons[i].move();
         persons[i].display();
-        persons[i].bounceOfWall();
+        persons[i].bounceOfCanvasWall();
 
 
-        if (persons[i].borderCollision(northQuarantineBorder.xPos, northQuarantineBorder.yPos, northQuarantineBorder.width, northQuarantineBorder.height)) {
-            persons[i].mirrorBounce();
+        if (persons[i].checkIfQuarantineBorderCollision(northQuarantineBorder.xPos, northQuarantineBorder.yPos, northQuarantineBorder.width, northQuarantineBorder.height)) {
+            persons[i].mirrorMovement();
         }
-        if (persons[i].borderCollision(southQuarantineBorder.xPos, southQuarantineBorder.yPos, southQuarantineBorder.width, southQuarantineBorder.height)) {
-            persons[i].mirrorBounce();
+        if (persons[i].checkIfQuarantineBorderCollision(southQuarantineBorder.xPos, southQuarantineBorder.yPos, southQuarantineBorder.width, southQuarantineBorder.height)) {
+            persons[i].mirrorMovement();
         }
 
         for (let j = 0; j < persons.length; j++) {
-            if (i != j && persons[i].collision(persons[j])) {
+            if (i != j && persons[i].checkCollisionWithOtherPerson(persons[j])) {
                 if (persons[i].atCollisionCheckIfInfected(persons[j])) {
                     persons[j].setInfected();
-                    persons[j].changeColor();
+                    persons[j].changeColorToRed();
                     infectedPersons++;
                     totalPerson--;
                 }

@@ -37,7 +37,7 @@ function setup() {
             if (distanceBetweenPersons < (person.personRadius) + (other.personRadius)) {
                 overlapping = true;
             }
-            if (person.borderCollision(quarantineBorder.xPos, quarantineBorder.yPos, quarantineBorder.width, quarantineBorder.height)) {
+            if (person.checkIfQuarantineBorderCollision(quarantineBorder.xPos, quarantineBorder.yPos, quarantineBorder.width, quarantineBorder.height)) {
                 overLappingNorthBorder = true;
             }
         }
@@ -70,17 +70,17 @@ function draw() {
     for (let i = 0; i < persons.length; i++) {
         persons[i].move();
         persons[i].display();
-        persons[i].bounceOfWall();
+        persons[i].bounceOfCanvasWall();
 
-        if (persons[i].borderCollision(quarantineBorder.xPos, quarantineBorder.yPos, quarantineBorder.width, quarantineBorder.height)) {
-            persons[i].mirrorBounce();
+        if (persons[i].checkIfQuarantineBorderCollision(quarantineBorder.xPos, quarantineBorder.yPos, quarantineBorder.width, quarantineBorder.height)) {
+            persons[i].mirrorMovement();
         }
 
         for (let j = 0; j < persons.length; j++) {
-            if (i != j && persons[i].collision(persons[j])) {
+            if (i != j && persons[i].checkCollisionWithOtherPerson(persons[j])) {
                 if (persons[i].atCollisionCheckIfInfected(persons[j])) {
                     persons[j].setInfected();
-                    persons[j].changeColor();
+                    persons[j].changeColorToRed();
                     infectedPersons++;
                     totalPerson--;
                 }
